@@ -1,0 +1,45 @@
+﻿<html>
+	<head>
+		<title>动画实现的一种方式</title>
+	</head>
+	<body>
+		<i id = "smallTV" style="display: block; background-image: url('http://static.hdslb.com/images/base/anim-app.png'); width: 80px; height: 80px; background-position: 0px 0px; position:absolute ;cursor:pointer" onmouseover="star()" onmouseout="stop()"></i>
+		<script>
+			var tv = document.getElementById("smallTV");
+			var theWidth = 0;
+			var changeStar, changeStop; //用于存放 setInterval() 方法
+
+			function star() {
+				clearInterval(changeStop);//一旦鼠标移入，就停止鼠标移出时的动画
+
+				changeStar = setInterval(changeTheWidthStar,100);
+				theWidth=0;
+			}
+
+			function stop() {
+				clearInterval(changeStar);   //一旦鼠标移开，就停止鼠标进入时的动画
+				changeStop = setInterval(changeTheWidthStop,100);
+			}
+
+			function changeTheWidthStar(){
+				theWidth -= 80;   //这个数字是根据那个长长的图片来确定的。
+			    tv.style.backgroundPositionX = theWidth + "px";	
+
+			    while(theWidth <= -1280) {
+			    	theWidth = -800;
+			    	theWidth -= 80;
+			    	tv.style.backgroundPositionX = theWidth + "px";	
+			    }	
+			}
+
+			function changeTheWidthStop(){
+				if(theWidth< 0){
+					theWidth += 80;
+				    tv.style.backgroundPositionX = theWidth + "px";		
+				} else {
+					clearInterval(changeStop);
+				}
+			}
+		</script>
+	</body>
+</html>
